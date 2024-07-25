@@ -1,10 +1,8 @@
-import { Context } from "elysia";
-import { ReqContext } from "../../core/settings/types/Context";
-import { RegisterDto } from "./dtos/register.dto";
 import userModel from "../../core/data/models/user.model";
+import { RegisterDto } from "./dtos/register.dto";
 import { methodCreator } from "../../core/settings/controllers/methodCreator";
 import { throwBadRequest } from "../../core/settings/errors/throw.error";
-import { generateToken, hashPassword } from "./service";
+import { generateToken, hashPassword } from ".";
 
 export const register = methodCreator<RegisterDto>(async (ctx) => {
   const { name, email, password } = ctx.body;

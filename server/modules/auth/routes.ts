@@ -1,6 +1,6 @@
 import Elysia from "elysia";
-import { register } from "./controller";
+import { register } from ".";
 
-const authApp = new Elysia().post("/register", register);
+const authApp = new Elysia({ prefix: "/auth" }).post("/register", register);
 
 export default authApp;
