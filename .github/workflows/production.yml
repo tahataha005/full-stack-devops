@@ -12,11 +12,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Change directory
-        run: cd ./server
-
       - name: Install dependencies
         run: npm install -g bun && bun install
+        working-directory: ./server
 
       - name: Build
         run: bun run test
+        working-directory: ./server
