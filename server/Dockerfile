@@ -1,6 +1,6 @@
 FROM oven/bun:canary-debian
 
-WORKDIR /usr/server
+WORKDIR /server
 
 COPY bun.lockb .
 COPY package*.json .
