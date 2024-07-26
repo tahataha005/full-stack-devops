@@ -20,8 +20,10 @@
   },
   "dependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.6",
     "bcrypt": "^5.1.1",
+    "@elysiajs/cors": "",
     "dotenv": "^16.4.5",
     "elysia": "^1.1.4",
     "jsonwebtoken": "^9.0.2",

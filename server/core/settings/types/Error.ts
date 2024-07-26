@@ -1,9 +1,9 @@
 import { ReqContext } from "./Context";
 
 export type BaseError = {
+  ctx: ReqContext;
   check?: boolean;
   message?: string;
-  ctx?: ReqContext;
 };
 
 export type NotFound = BaseError & {

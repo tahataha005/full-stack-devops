@@ -1,18 +1,22 @@
 import userModel from "../../core/data/models/user.model";
 import { RegisterDto } from "./dtos/register.dto";
 import { methodCreator } from "../../core/settings/controllers/methodCreator";
-import { throwBadRequest } from "../../core/settings/errors/throw.error";
+import {
+  throwBadRequest,
+  throwInternalServerError,
+} from "../../core/settings/errors/throw.error";
 import { comparePassword, generateToken, hashPassword } from ".";
+import { ReqContext } from "../../core/settings/types/Context";
+import { error } from "elysia";
 
-export const register = methodCreator<RegisterDto>(async (ctx) => {
+export const register = async (ctx: ReqContext<RegisterDto>) => {
   const { name, email, password } = ctx.body;
 
   const exists = await userModel.findOne({ email });
 
-  throwBadRequest({
-    check: exists !== null,
-    message: "User already exists",
-  });
+  if (exists) {
+    throw error(400, "user already exists");
+  }
 
   const hashedPassword = await hashPassword(password);
 
@@ -24,31 +28,25 @@ export const register = methodCreator<RegisterDto>(async (ctx) => {
 
   const token = generateToken(user);
 
-  const { password: _, ...userWithoutPassword } = user;
+  return { user, token };
+};
 
-  return { user: userWithoutPassword, token };
-});
-
-export const login = methodCreator<RegisterDto>(async (ctx) => {
+export const login = async (ctx: ReqContext<RegisterDto>) => {
   const { email, password } = ctx.body;
 
-  const user = await userModel.findOne({ email });
+  const user = await userModel.findOne({ email }).select("+password");
 
-  throwBadRequest({
-    check: user === null,
-    message: "User not found",
-  });
+  if (!user) {
+    throw error(404, "User not found");
+  }
 
   const isPasswordValid = await comparePassword(password, user!.password);
 
-  throwBadRequest({
-    check: !isPasswordValid,
-    message: "Invalid password",
-  });
+  if (!isPasswordValid) {
+    throw error(400, "Invalid credentials");
+  }
 
   const token = generateToken(user!);
 
-  const { password: _, ...userWithoutPassword } = user!;
-
-  return { user: userWithoutPassword, token };
-});
+  return { user, token };
+};
