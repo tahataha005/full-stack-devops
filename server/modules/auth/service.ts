@@ -1,4 +1,4 @@
-import { genSalt, hash } from "bcrypt";
+import { compare, genSalt, hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { User } from "../../core/types/User";
 
@@ -18,4 +18,13 @@ export const generateToken = (user: User) => {
   });
 
   return token;
+};
+
+export const comparePassword = async (
+  password: string,
+  hashedPassword: string
+) => {
+  const isPasswordValid = await compare(password, hashedPassword);
+
+  return isPasswordValid;
 };
