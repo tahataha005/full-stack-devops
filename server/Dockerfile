@@ -2,8 +2,8 @@ FROM oven/bun:canary-debian
 
 WORKDIR /server
 
-COPY bun.lockb .
-COPY package*.json .
+COPY ./server/bun.lockb .
+COPY ./server/package*.json .
 
 RUN bun install --frozen-lockfile
 
