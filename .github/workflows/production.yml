@@ -13,9 +13,9 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: npm install -g bun  && bun install
+        run: npm install -g bun && bun install
         working-directory: ./server
 
       - name: Build
-        run: npx jest
+        run: bun run test
         working-directory: ./server
