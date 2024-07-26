@@ -16,7 +16,7 @@ jobs:
         run: cd ./server
 
       - name: Install dependencies
-        run: npm install -g bun && bun init
+        run: npm install -g bun && bun install
 
       - name: Build
         run: bun run test
