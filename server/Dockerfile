@@ -1,12 +1,11 @@
 FROM oven/bun:canary-debian
 
-WORKDIR /usr/full-stack-devops/server
+WORKDIR /usr/server
 
-COPY package.json .
+COPY bun.lockb .
+COPY package*.json .
 
-COPY package-lock.json .
-
-RUN bun install
+RUN bun install --frozen-lockfile
 
 COPY . .
 
