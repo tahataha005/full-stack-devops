@@ -53,4 +53,4 @@ jobs:
             sudo docker stop devops-app || true
             sudo docker rm devops-app || true
             sudo docker pull ${{secrets.DOCKER_USERNAME}}/devops-app:v1
-            sudo docker run -d -p ${{secrets.EXPOSED_SERVER_PORT}}:${{secrets.IMAGE_SERVER_PORT}} ${{secrets.DOCKER_USERNAME}}/devops-app:v1
+            sudo docker run -d -p ${{secrets.EXPOSED_APP_PORT}}:${{secrets.IMAGE_APP_PORT}} ${{secrets.DOCKER_USERNAME}}/devops-app:v1
