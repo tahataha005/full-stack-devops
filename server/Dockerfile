@@ -7,7 +7,7 @@ COPY ./server/package*.json .
 
 RUN bun install --frozen-lockfile
 
-COPY . .
+COPY ./server .
 
 EXPOSE 8080
 
